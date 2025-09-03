@@ -1,1 +1,1 @@
-/home/andrew/vial-qmk/keyboards/unicomp/mini_m/keymaps/vial/config.h
+../vial/config.h
