@@ -39,3 +39,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_TRNS, KC_TRNS,   KC_TRNS
   ),
 };
+
+bool led_update_user(led_t led_state) {
+    // Returning false prevents the default caps/num/scroll LED processing.
+    return false;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+  uint8_t layer = get_highest_layer(state);
+  writePin(LED_SCROLL_LOCK_PIN, (layer & 0b1) ? LED_PIN_ON_STATE : !LED_PIN_ON_STATE);
+  writePin(LED_CAPS_LOCK_PIN, ((layer >> 1) & 0b1) ? LED_PIN_ON_STATE : !LED_PIN_ON_STATE);
+  writePin(LED_NUM_LOCK_PIN, ((layer >> 2) & 0b1) ? LED_PIN_ON_STATE : !LED_PIN_ON_STATE);
+  uprintf("%d string", layer);
+  return state;
+}
